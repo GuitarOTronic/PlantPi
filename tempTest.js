@@ -18,13 +18,18 @@ ds18b20.temperature('28-0115721161ff', { parser: 'hex' }, function (err, value) 
 });
 
 function convertCelsiusToFahrenheit(tempC) {
+  console.log('converting', tempC)
   return (tempC * 9) / 5 + 32
 }
 
 function getTemperatureF() {
+  let tempF
   ds18b20.temperature('28-0115721161ff', function (err, value) {
-    return convertCelsiusToFahrenheit(value)
+    console.log("getting temp", value)
+    tempF = convertCelsiusToFahrenheit(value)
   })
+
+
 }
 
 console.log('Current temperature is' + getTemperatureF());
