@@ -1,7 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import bodyParser from 'body-parser'
-import TemperatureController from './sensors/Temperature'
+import TemperatureController from './sensors/Temperature/TemperatureController.js'
 const app = express()
 const port = process.env.PORT || 8081
 
