@@ -27,7 +27,7 @@ function getTemperatureF() {
     tempC = value
   })
 
-  let tempF = convertCelsiusToFahrenheit(tempC)
+  return convertCelsiusToFahrenheit(tempC)
 
 }
 
