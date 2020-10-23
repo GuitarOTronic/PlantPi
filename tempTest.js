@@ -22,13 +22,9 @@ function convertCelsiusToFahrenheit(tempC) {
 }
 
 function getTemperatureF() {
-  let tempC = null
   ds18b20.temperature('28-0115721161ff', function (err, value) {
-    tempC = value
+    return convertCelsiusToFahrenheit(value)
   })
-
-  return convertCelsiusToFahrenheit(tempC)
-
 }
 
 console.log('Current temperature is' + getTemperatureF());
