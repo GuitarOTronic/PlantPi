@@ -18,7 +18,6 @@ ds18b20.temperature('28-0115721161ff', { parser: 'hex' }, function (err, value) 
 });
 
 function convertCelsiusToFahrenheit(tempC) {
-  console.log('converting', tempC)
   return (tempC * 9) / 5 + 32
 }
 

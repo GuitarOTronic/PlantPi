@@ -1,9 +1,13 @@
-const express = require('express')
+import express from 'express'
+import cors from 'cors'
+import bodyParser from 'body-parser'
+import TemperatureController from './sensors/Temperature'
 const app = express()
-const cors = require('cors')
 const port = process.env.PORT || 8081
-const bodyParser = require('body-parser')
 
+const temperatureController = new TemperatureController()
+
+temperatureController.getTemperatureF()
 // app.disable('x-powered-by')
 app.use(cors())
 app.use(bodyParser.json())
