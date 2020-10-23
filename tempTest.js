@@ -22,14 +22,17 @@ function convertCelsiusToFahrenheit(tempC) {
   return (tempC * 9) / 5 + 32
 }
 
-function getTemperatureF() {
+async function getTemperatureF() {
   let tempF
-  ds18b20.temperature('28-0115721161ff', function (err, value) {
-    console.log("getting temp", value)
-    tempF = convertCelsiusToFahrenheit(value)
-  })
-
-
+  try {
+    await ds18b20.temperature('28-0115721161ff', function (err, value) {
+      console.log("getting temp", value)
+      tempF = convertCelsiusToFahrenheit(value)
+    })
+  } catch (err) {
+    throw Error("Error getting temp: ", err.message)
+  }
+  return tempF
 }
 
 console.log('Current temperature is' + getTemperatureF());
