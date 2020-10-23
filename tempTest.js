@@ -29,10 +29,10 @@ async function getTemperatureF() {
       console.log("getting temp", value)
       tempF = convertCelsiusToFahrenheit(value)
     })
+    return tempF
   } catch (err) {
     throw Error("Error getting temp: ", err.message)
   }
-  return tempF
 }
 
 console.log('Current temperature is' + getTemperatureF());
