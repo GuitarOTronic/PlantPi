@@ -28,6 +28,8 @@ async function getTemperatureF() {
     await ds18b20.temperature('28-0115721161ff', function (err, value) {
       console.log("getting temp", value)
       tempF = convertCelsiusToFahrenheit(value)
+      console.log(convertCelsiusToFahrenheit(value))
+      console.log(tempF)
     })
     return tempF
   } catch (err) {
