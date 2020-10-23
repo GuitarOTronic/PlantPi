@@ -38,7 +38,7 @@ class TemperatureController {
     let tempF
     try {
       await ds18b20.temperature('28-0115721161ff', function (err, value) {
-        tempF = convertCelsiusToFahrenheit(value)
+        tempF = this.convertCelsiusToFahrenheit(value)
         console.log("Temp is ", tempF)
         return tempF
       })
