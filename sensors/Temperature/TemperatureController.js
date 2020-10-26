@@ -35,7 +35,11 @@ class TemperatureController {
 
   recordTemp = async () => {
     // calls sensor 
-    const tempF = await getTemperature()
+    let tempF
+    await getTemperature()
+      .then((temp) => {
+        tempF = temp
+      })
     // saves sensor data
     console.log('record temp', tempF)
     const now = new Date().toISOString()
