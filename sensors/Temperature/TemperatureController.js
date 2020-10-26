@@ -14,7 +14,7 @@ const TEN_MINUTES = 600000
 const getTemperature = async (API_KEY, cb) => {
 
   try {
-    const bellinghamWeather = await Axios.get(`http://api.openweathermap.org/data/2.5/weather?zip=98226&appid=${API_KEY}`)
+    const bellinghamWeather = await Axios.get(`http://api.openweathermap.org/data/2.5/weather?zip=98226&units=imperial&appid=${API_KEY}`)
     await ds18b20.temperature('28-0115721161ff', function (err, degC) {
       let tempF = convertCelsiusToFahrenheit(degC)
       console.log(bellinghamWeather)
@@ -28,12 +28,22 @@ const getTemperature = async (API_KEY, cb) => {
 class TemperatureController {
   constructor() {
     this.tempCounter = 0
-    this.API_KEY = process.env.API_KEY
+    this.API_KEY = process.env.API_KEY || this.getApiKey
 
   }
 
   startTempRoutine = () => {
     temperatureTimer(TEN_MINUTES, this.recordTemp)
+  }
+
+  getApiKey = async () => {
+    try {
+      const apiKey = JSON.parse(fs.readFileSync(`${__dirname}/apiKey.json`))
+      return apiKey
+    }
+    catch (err) {
+      currentData = JSON.stringify([])
+    }
   }
 
   recordTemp = async () => {
