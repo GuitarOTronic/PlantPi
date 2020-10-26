@@ -5,15 +5,19 @@ import { dirname } from 'path';
 import temperatureTimer from '../services/timer.js'
 import { convertCelsiusToFahrenheit } from './utils.js'
 import TemperatureModel from '../../model/TemperatureModel.js'
+import Axios from 'axios';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const TEN_MINUTES = 600000
-
+const API_KEY = process.env['API_KEY']
 const getTemperature = async (cb) => {
+
   try {
+    const bellinghamWeather = await Axios.get(`http://api.openweathermap.org/data/2.5/weather?zip=98226&appid=${API_KEY}`)
     await ds18b20.temperature('28-0115721161ff', function (err, degC) {
       let tempF = convertCelsiusToFahrenheit(degC)
+      console.log(bellinghamWeather)
       cb(tempF)
     })
   } catch (err) {
