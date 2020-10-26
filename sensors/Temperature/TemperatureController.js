@@ -53,7 +53,7 @@ class TemperatureController {
     // res.json({ currentTemp: convertCelsiusToFahrenheit(3) })
 
     try {
-      const bellinghamWeather = await Axios.get(`http://api.openweathermap.org/data/2.5/weather?zip=98226&appid=${API_KEY}`)
+      // const bellinghamWeather = await Axios.get(`http://api.openweathermap.org/data/2.5/weather?zip=98226&appid=${API_KEY}`)
       await ds18b20.temperature('28-0115721161ff', function (err, degC) {
 
         tempF = convertCelsiusToFahrenheit(degC)
