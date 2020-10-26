@@ -57,7 +57,7 @@ class TemperatureController {
       await ds18b20.temperature('28-0115721161ff', function (err, degC) {
 
         tempF = convertCelsiusToFahrenheit(degC)
-        res.json({ currentTemp: tempF, bellinghamWeather })
+        res.json({ currentTemp: tempF })
       })
     } catch (err) {
       throw Error("Error getting temp: ", err.message)
