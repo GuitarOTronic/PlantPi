@@ -10,9 +10,8 @@ import Axios from 'axios';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const TEN_MINUTES = 600000
-const API_KEY = process.env['API_KEY']
 
-const getTemperature = async (cb) => {
+const getTemperature = async (API_KEY, cb) => {
 
   try {
     const bellinghamWeather = await Axios.get(`http://api.openweathermap.org/data/2.5/weather?zip=98226&appid=${API_KEY}`)
@@ -29,6 +28,8 @@ const getTemperature = async (cb) => {
 class TemperatureController {
   constructor() {
     this.tempCounter = 0
+    this.API_KEY = process.env.API_KEY
+
   }
 
   startTempRoutine = () => {
@@ -36,7 +37,7 @@ class TemperatureController {
   }
 
   recordTemp = async () => {
-    await getTemperature((tempF) => {
+    await getTemperature(this.API_KEY, (tempF) => {
       const now = new Date().toISOString()
       const currentTemp = {
         time: now,
@@ -66,6 +67,8 @@ class TemperatureController {
 
   saveTempDataToJSON(tempData) {
     const today = new Date()
+    console.log(API_KEY)
+
     const fileName = `${today.getFullYear()}_${today.getMonth()}_${today.getDate()}`
     let currentData
     try {
