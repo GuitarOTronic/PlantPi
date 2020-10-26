@@ -53,13 +53,13 @@ class TemperatureController {
     let tempF
     // for testing
     // res.json({ currentTemp: convertCelsiusToFahrenheit(3) })
-    return 32
+    // return 32
     try {
       await ds18b20.temperature('28-0115721161ff', function (err, degC) {
         tempF = convertCelsiusToFahrenheit(degC)
         return tempF
       })
-      res.json({ currentTemp: tempF })
+      return tempF
     } catch (err) {
       throw Error("Error getting temp: ", err.message)
     }
