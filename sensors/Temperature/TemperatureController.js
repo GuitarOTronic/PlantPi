@@ -24,6 +24,7 @@ class TemperatureController {
     // calls sensor 
     const tempF = await this.getTemperature()
     // saves sensor data
+    console.log('record temp', tempF)
     const now = new Date().toISOString()
     const currentTemp = {
       time: now,
