@@ -10,17 +10,16 @@ import TemperatureModel from '../../model/TemperatureModel.js'
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const TEN_MINUTES = 600000
-const getTemperature = async (req, res, next) => {
+
+const getTemperature = async (cb) => {
   // for testing
   // res.json({ currentTemp: convertCelsiusToFahrenheit(3) })
   // return 32
   try {
-    const tempF = await ds18b20.temperature('28-0115721161ff', function (err, degC) {
+    await ds18b20.temperature('28-0115721161ff', function (err, degC) {
       let tempF = convertCelsiusToFahrenheit(degC)
-      console.log('getTemperature', tempF)
-      return tempF
+      cb(tempF)
     })
-    return tempF
   } catch (err) {
     throw Error("Error getting temp: ", err)
   }
@@ -37,11 +36,7 @@ class TemperatureController {
   recordTemp = async () => {
     // calls sensor 
     let tempF
-    await getTemperature()
-      .then((temp) => {
-        console.log("Temp", temp)
-        tempF = temp
-      })
+    await getTemperature((temp) => tempF = temp)
     // saves sensor data
     console.log('record temp', tempF)
     const now = new Date().toISOString()
