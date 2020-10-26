@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const x = parse(__filename)
-const DATA_PATH = '/Users/seanobringer/Learning/PlantPi/sensors/Temperature/tempData/'
+const DATA_PATH = '/home/pi/projects/PlantPi/sensors/Temperature/tempData/'
 
 class TemperatureModel {
 
