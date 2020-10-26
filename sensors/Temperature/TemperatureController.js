@@ -1,9 +1,11 @@
-import { EventEmitter } from 'events'
 import fs from 'fs'
 import ds18b20 from 'ds18b20'
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import temperatureTimer from '../services/timer.js'
+import { convertCelsiusToFahrenheit } from './utils.js'
+// const TemperatureModel = require(`../models/${name}.js`)
+import TemperatureModel from '../../model/TemperatureModel.js'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -14,42 +16,83 @@ class TemperatureController {
     this.tempCounter = 0
   }
 
-  startTempTimer = () => {
+  startTempRoutine = () => {
     temperatureTimer(1000, this.recordTemp)
-    console.log('chow')
   }
 
-  recordTemp = () => {
+  recordTemp = async () => {
     // calls sensor 
+    const tempF = await this.getTemperature()
     // saves sensor data
-    const now = Date()
+    const now = new Date().toISOString()
     const currentTemp = {
-      date: now,
-      count: this.tempCounter
+      time: now,
+      temperature: tempF
     }
-    this.tempCounter++
+    this.saveTempDataToJSON(currentTemp)
   }
 
-  convertCelsiusToFahrenheit = (tempC) => {
-    return (tempC * 9) / 5 + 32
-  }
-
-  getTemperatureF = async () => {
+  static getTemperatureF = async (req, res, next) => {
     let tempF
+    // for testing
+    // res.json({ currentTemp: convertCelsiusToFahrenheit(3) })
+
     try {
-      await ds18b20.temperature('28-0115721161ff', function (err, value) {
-        tempF = this.convertCelsiusToFahrenheit(value)
-        console.log("Temp is ", tempF)
+      await ds18b20.temperature('28-0115721161ff', function (err, degC) {
+        tempF = convertCelsiusToFahrenheit(degC)
         return tempF
       })
+      res.json({ currentTemp: tempF })
+    } catch (err) {
+      throw Error("Error getting temp: ", err.message)
+      res.Error({ err })
+    }
+  }
+
+  getTemperature = async (req, res, next) => {
+    let tempF
+    // for testing
+    // res.json({ currentTemp: convertCelsiusToFahrenheit(3) })
+    return 32
+    try {
+      await ds18b20.temperature('28-0115721161ff', function (err, degC) {
+        tempF = convertCelsiusToFahrenheit(degC)
+        return tempF
+      })
+      res.json({ currentTemp: tempF })
     } catch (err) {
       throw Error("Error getting temp: ", err.message)
     }
   }
 
-  saveTempData() { }
+  saveTempDataToJSON(tempData) {
+    const today = new Date()
+    const fileName = `${today.getFullYear()}_${today.getMonth()}_${today.getDate()}`
+    let currentData
+    try {
+      currentData = fs.readFileSync(`${__dirname}/tempData/${fileName}.json`)
+    }
+    catch (err) {
+      currentData = JSON.stringify([])
+    }
+    const parsedData = JSON.parse(currentData)
+    const dataToSave = [...parsedData, tempData]
+    const jsonTempData = JSON.stringify(dataToSave)
+    try {
+      fs.writeFileSync(`${__dirname}/tempData/${fileName}.json`, jsonTempData)
+    }
+    catch (err) {
+      Error(err.message)
+    }
+  }
 
-  getAllTempData() { }
+  static getAllTempData(req, res, next) {
+    TemperatureModel.all().then(response => {
+      res.json({ response })
+    })
+    
+    // return tempData
+  }
 }
 
 export default TemperatureController
