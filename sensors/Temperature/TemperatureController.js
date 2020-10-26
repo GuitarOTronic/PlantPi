@@ -17,7 +17,7 @@ class TemperatureController {
   }
 
   startTempRoutine = () => {
-    temperatureTimer(TEN_MINUTES, this.recordTemp)
+    temperatureTimer(10000, this.recordTemp)
   }
 
   recordTemp = async () => {
