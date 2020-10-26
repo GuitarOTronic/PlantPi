@@ -17,6 +17,7 @@ const getTemperature = async (req, res, next) => {
   try {
     const tempF = await ds18b20.temperature('28-0115721161ff', function (err, degC) {
       let tempF = convertCelsiusToFahrenheit(degC)
+      console.log('getTemperature', tempF)
       return tempF
     })
     return tempF
