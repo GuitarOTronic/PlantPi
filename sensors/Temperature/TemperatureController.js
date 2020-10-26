@@ -29,6 +29,7 @@ class TemperatureController {
       time: now,
       temperature: tempF
     }
+    console.log('currentTemp', currentTemp)
     this.saveTempDataToJSON(currentTemp)
   }
 
