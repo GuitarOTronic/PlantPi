@@ -11,9 +11,9 @@ const port = process.env.PORT || 8081
 dotenv.config()
 
 const temperatureController = new TemperatureController()
-// temperatureController.getTemperatureF()
+
 temperatureController.startTempRoutine()
-// app.disable('x-powered-by')
+
 app.use(cors())
 app.use(bodyParser.json())
 

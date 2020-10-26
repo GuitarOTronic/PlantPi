@@ -4,24 +4,34 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import temperatureTimer from '../services/timer.js'
 import { convertCelsiusToFahrenheit } from './utils.js'
-// const TemperatureModel = require(`../models/${name}.js`)
 import TemperatureModel from '../../model/TemperatureModel.js'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const TEN_MINUTES = 600000
 
+const getTemperature = async (cb) => {
+  try {
+    await ds18b20.temperature('28-0115721161ff', function (err, degC) {
+      let tempF = convertCelsiusToFahrenheit(degC)
+      cb(tempF)
+    })
+  } catch (err) {
+    throw Error("Error getting temp: ", err)
+  }
+}
+
 class TemperatureController {
   constructor() {
     this.tempCounter = 0
   }
-  
+
   startTempRoutine = () => {
-    temperatureTimer(10000, this.recordTemp)
+    temperatureTimer(TEN_MINUTES, this.recordTemp)
   }
-  
+
   recordTemp = async () => {
-    await this.getTemperature((tempF) => {
+    await getTemperature((tempF) => {
       const now = new Date().toISOString()
       const currentTemp = {
         time: now,
@@ -30,17 +40,6 @@ class TemperatureController {
       console.log('currentTemp', currentTemp)
       this.saveTempDataToJSON(currentTemp)
     })
-  }
-  
-  static getTemperature = async (cb) => {
-    try {
-      await ds18b20.temperature('28-0115721161ff', function (err, degC) {
-        let tempF = convertCelsiusToFahrenheit(degC)
-        cb(tempF)
-      })
-    } catch (err) {
-      throw Error("Error getting temp: ", err)
-    }
   }
 
   static getTemperatureF = async (req, res, next) => {
@@ -55,7 +54,6 @@ class TemperatureController {
       res.json({ currentTemp: tempF })
     } catch (err) {
       throw Error("Error getting temp: ", err.message)
-      res.Error({ err })
     }
   }
 
@@ -84,8 +82,6 @@ class TemperatureController {
     TemperatureModel.all().then(response => {
       res.json({ response })
     })
-    
-    // return tempData
   }
 }
 

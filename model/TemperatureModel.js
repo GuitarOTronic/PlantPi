@@ -12,14 +12,17 @@ class TemperatureModel {
   static all() {
     return new Promise((resolve, reject) => {
       let tempData = []
-      fs.readdirSync(DATA_PATH).forEach(file => {
-        tempData.push(JSON.parse(fs.readFileSync(`${DATA_PATH}${file}`)))
-        console.log(tempData)
-        return tempData
-      })
-      resolve(tempData)
-      // or
-      // reject(new Error("Error!"));
+      try {
+        fs.readdirSync(DATA_PATH).forEach(file => {
+          tempData.push(JSON.parse(fs.readFileSync(`${DATA_PATH}${file}`)))
+          console.log(tempData)
+          return tempData
+        })
+        resolve(tempData)
+      }
+      catch (err) {
+        reject(new Error(err));
+      }
     });
 
   }
