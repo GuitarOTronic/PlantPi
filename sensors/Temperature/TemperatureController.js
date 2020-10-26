@@ -41,7 +41,6 @@ class TemperatureController {
 
     try {
       await ds18b20.temperature('28-0115721161ff', function (err, degC) {
-        console.log("err", err)
         tempF = convertCelsiusToFahrenheit(degC)
         return tempF
       })
@@ -57,10 +56,8 @@ class TemperatureController {
     // res.json({ currentTemp: convertCelsiusToFahrenheit(3) })
     // return 32
     try {
-      await ds18b20.temperature('28-0115721161ff', function (err, degC) {
-        console.log("tempC", degC)
+      const tempF = await ds18b20.temperature('28-0115721161ff', function (err, degC) {
         let tempF = convertCelsiusToFahrenheit(degC)
-        console.log("tempF", tempF)
         return tempF
       })
       return tempF
