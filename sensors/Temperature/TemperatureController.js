@@ -60,7 +60,6 @@ class TemperatureController {
         console.log("tempC", degC)
         tempF = convertCelsiusToFahrenheit(degC)
         console.log("tempF", tempF)
-        return tempF
       })
       return tempF
     } catch (err) {
