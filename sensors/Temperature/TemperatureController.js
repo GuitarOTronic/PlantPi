@@ -34,18 +34,15 @@ class TemperatureController {
   }
 
   recordTemp = async () => {
-    // calls sensor 
-    let tempF
-    await getTemperature((temp) => tempF = temp)
-    // saves sensor data
-    console.log('record temp', tempF)
-    const now = new Date().toISOString()
-    const currentTemp = {
-      time: now,
-      temperature: tempF
-    }
-    console.log('currentTemp', currentTemp)
-    this.saveTempDataToJSON(currentTemp)
+    await getTemperature((tempF) => {
+      const now = new Date().toISOString()
+      const currentTemp = {
+        time: now,
+        temperature: tempF
+      }
+      console.log('currentTemp', currentTemp)
+      this.saveTempDataToJSON(currentTemp)
+    })
   }
 
   static getTemperatureF = async (req, res, next) => {
