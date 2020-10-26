@@ -64,7 +64,7 @@ class TemperatureController {
       })
       return tempF
     } catch (err) {
-      throw Error("Error getting temp: ", err.message)
+      throw Error("Error getting temp: ", err)
     }
   }
 
