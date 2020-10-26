@@ -51,7 +51,7 @@ class TemperatureController {
     }
   }
 
-  getTemperature = async (req, res, next) => {
+  static getTemperature = async (req, res, next) => {
     // for testing
     // res.json({ currentTemp: convertCelsiusToFahrenheit(3) })
     // return 32
