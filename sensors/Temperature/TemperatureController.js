@@ -38,6 +38,7 @@ class TemperatureController {
     let tempF
     await getTemperature()
       .then((temp) => {
+        console.log("Temp", temp)
         tempF = temp
       })
     // saves sensor data
