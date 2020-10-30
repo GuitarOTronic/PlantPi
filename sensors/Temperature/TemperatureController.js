@@ -14,12 +14,10 @@ const TEN_MINUTES = 600000
 const getTemperature = async (API_KEY, cb) => {
 
   try {
-    console.log('api key', API_KEY)
     const bellinghamWeather = await Axios.get(`http://api.openweathermap.org/data/2.5/weather?zip=98226&units=imperial&appid=${API_KEY}`)
     await ds18b20.temperature('28-0115721161ff', function (err, degC) {
       let tempF = convertCelsiusToFahrenheit(degC)
-      console.log(bellinghamWeather)
-      cb(tempF)
+      cb(tempF, bellinghamWeather.data)
     })
   } catch (err) {
     throw Error("Error getting temp: ", err)
@@ -48,13 +46,13 @@ class TemperatureController {
   }
 
   recordTemp = async () => {
-    await getTemperature(this.API_KEY, (tempF) => {
+    await getTemperature(this.API_KEY, (tempF, bellinghamWeather) => {
       const now = new Date().toISOString()
       const currentTemp = {
         time: now,
-        temperature: tempF
+        temperature: tempF,
+        openWeather: bellinghamWeather
       }
-      console.log('currentTemp', currentTemp)
       this.saveTempDataToJSON(currentTemp)
     })
   }
@@ -65,7 +63,6 @@ class TemperatureController {
     // res.json({ currentTemp: convertCelsiusToFahrenheit(3) })
 
     try {
-      // const bellinghamWeather = await Axios.get(`http://api.openweathermap.org/data/2.5/weather?zip=98226&appid=${API_KEY}`)
       await ds18b20.temperature('28-0115721161ff', function (err, degC) {
 
         tempF = convertCelsiusToFahrenheit(degC)
@@ -78,7 +75,6 @@ class TemperatureController {
 
   saveTempDataToJSON(tempData) {
     const today = new Date()
-    console.log(API_KEY)
 
     const fileName = `${today.getFullYear()}_${today.getMonth()}_${today.getDate()}`
     let currentData
