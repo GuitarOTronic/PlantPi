@@ -32,7 +32,7 @@ class TemperatureController {
   }
 
   startTempRoutine = () => {
-    temperatureTimer(10000, this.recordTemp)
+    temperatureTimer(TEN_MINUTES, this.recordTemp)
   }
 
   getApiKey = async () => {
@@ -51,7 +51,7 @@ class TemperatureController {
       const currentTemp = {
         time: now,
         temperature: tempF,
-        openWeather: bellinghamWeather
+        openWeatherTemp: bellinghamWeather.main.temp
       }
       this.saveTempDataToJSON(currentTemp)
     })
