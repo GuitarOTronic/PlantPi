@@ -1,5 +1,5 @@
-import chai from 'chai'
-import TemperatureController from '../sensors/Temperature/TemperatureController.js'
+const chai = require('chai')
+const TemperatureController = require('../sensors/Temperature/TemperatureController.js')
 const expect = chai.expect
 let temperatureData
 describe("Temperature Controller", () => {
@@ -22,5 +22,9 @@ describe("Temperature Controller", () => {
     const data = tempController.getAllTempData()
 
     // expect(temperatureData).to.deep.equal(data)
+  })
+  it('SHould get api key', async () => {
+    const { key } = await tempController.getApiKey()
+    expect(key).to.equal('e61b32077832169b4957bd3bd9fd36c4')
   })
 })
