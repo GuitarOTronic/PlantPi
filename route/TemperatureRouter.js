@@ -1,5 +1,5 @@
-import express from 'express'
-import TemperatureController from '../sensors/Temperature/TemperatureController.js'
+const express = require('express')
+const TemperatureController = require('../sensors/Temperature/TemperatureController.js')
 const router = express.Router()
 
 router.get('/', TemperatureController.getAllTempData)

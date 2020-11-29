@@ -1,10 +1,14 @@
-import express from 'express'
-import cors from 'cors'
-import bodyParser from 'body-parser'
-import dotenv from 'dotenv'
+// import express from 'express'
+const express = require('express')
+// import cors from 'cors'
+const cors = require('cors')
+// import bodyParser from 'body-parser'
+const bodyParser = require('body-parser')
+// import dotenv from 'dotenv'
+const dotenv = require("dotenv")
 
-import TemperatureController from './sensors/Temperature/TemperatureController.js'
-import TemperatureRouter from './route/TemperatureRouter.js'
+const TemperatureController = require('./sensors/Temperature/TemperatureController.js')
+const TemperatureRouter = require('./route/TemperatureRouter.js')
 
 const app = express()
 const port = process.env.PORT || 8081

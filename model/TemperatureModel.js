@@ -1,8 +1,9 @@
-import fs from 'fs'
-import path, { dirname, parse } from 'path';
-import { fileURLToPath } from 'url';
+const fs = require('fs')
+const path = require('path')
+const fileURLToPath = require('url').fileURLToPath
+const  { dirname, parse } = path
 
-const __filename = fileURLToPath(import.meta.url);
+const __filename = fileURLToPath(require(meta.url));
 const __dirname = dirname(__filename);
 const x = parse(__filename)
 const DATA_PATH = '/home/pi/projects/PlantPi/sensors/Temperature/tempData/'
@@ -28,4 +29,4 @@ class TemperatureModel {
   }
 }
 
-export default TemperatureModel
+module.exports = TemperatureModel

@@ -1,13 +1,13 @@
-import fs from 'fs'
-import ds18b20 from 'ds18b20'
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-import temperatureTimer from '../services/timer.js'
-import { convertCelsiusToFahrenheit } from './utils.js'
-import TemperatureModel from '../../model/TemperatureModel.js'
-import Axios from 'axios';
+const fs = require( 'fs')
+const ds18b20 = require( 'ds18b20')
+const fileURLToPath = require( 'url').fileURLToPath
+const dirname = require( 'path').dirname
+const convertCelsiusToFahrenheit = require( './utils.js').convertCelsiusToFahrenheit
+const temperatureTimer = require( '../services/timer.js')
+const TemperatureModel = require( '../../model/TemperatureModel.js')
+const Axios = require( 'axios')
 
-const __filename = fileURLToPath(import.meta.url);
+const __filename = fileURLToPath(require(meta.url));
 const __dirname = dirname(__filename);
 const TEN_MINUTES = 600000
 
@@ -102,4 +102,4 @@ class TemperatureController {
   }
 }
 
-export default TemperatureController
+module.exports = TemperatureController
