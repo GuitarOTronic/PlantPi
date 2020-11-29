@@ -8,7 +8,7 @@ const TemperatureModel = require( '../../model/TemperatureModel.js')
 const Axios = require( 'axios')
 
 const __fName = fileURLToPath(require(meta.url));
-const __dirname = dirname(__fName);
+const __dName = dirname(__fName);
 const TEN_MINUTES = 600000
 
 const getTemperature = async (API_KEY, cb) => {
@@ -37,7 +37,7 @@ class TemperatureController {
 
   getApiKey = async () => {
     try {
-      const apiKey = JSON.parse(fs.readFileSync(`${__dirname}/apiKey.json`))
+      const apiKey = JSON.parse(fs.readFileSync(`${__dName}/apiKey.json`))
       return apiKey
     }
     catch (err) {
@@ -79,7 +79,7 @@ class TemperatureController {
     const fileName = `${today.getFullYear()}_${today.getMonth()}_${today.getDate()}`
     let currentData
     try {
-      currentData = fs.readFileSync(`${__dirname}/tempData/${fileName}.json`)
+      currentData = fs.readFileSync(`${__dName}/tempData/${fileName}.json`)
     }
     catch (err) {
       currentData = JSON.stringify([])
@@ -88,7 +88,7 @@ class TemperatureController {
     const dataToSave = [...parsedData, tempData]
     const jsonTempData = JSON.stringify(dataToSave)
     try {
-      fs.writeFileSync(`${__dirname}/tempData/${fileName}.json`, jsonTempData)
+      fs.writeFileSync(`${__dName}/tempData/${fileName}.json`, jsonTempData)
     }
     catch (err) {
       Error(err.message)
