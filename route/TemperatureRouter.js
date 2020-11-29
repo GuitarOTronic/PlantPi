@@ -5,4 +5,4 @@ const router = express.Router()
 router.get('/', TemperatureController.getAllTempData)
 router.get('/current', TemperatureController.getTemperatureF)
 
-export default router
+module.exports = router

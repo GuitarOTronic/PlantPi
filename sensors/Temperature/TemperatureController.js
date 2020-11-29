@@ -7,8 +7,8 @@ const temperatureTimer = require( '../services/timer.js')
 const TemperatureModel = require( '../../model/TemperatureModel.js')
 const Axios = require( 'axios')
 
-const __fName = fileURLToPath(import(meta.url));
-const __dName = dirname(__fName);
+// const __fName = fileURLToPath(import.meta.url);
+// const __dName = dirname(__fName);
 const TEN_MINUTES = 600000
 
 const getTemperature = async (API_KEY, cb) => {
@@ -32,7 +32,7 @@ class TemperatureController {
   }
 
   startTempRoutine = () => {
-    temperatureTimer(TEN_MINUTES, this.recordTemp)
+    // temperatureTimer(TEN_MINUTES, this.recordTemp)
   }
 
   getApiKey = async () => {
