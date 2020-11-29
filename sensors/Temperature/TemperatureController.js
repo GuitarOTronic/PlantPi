@@ -7,7 +7,7 @@ const temperatureTimer = require( '../services/timer.js')
 const TemperatureModel = require( '../../model/TemperatureModel.js')
 const Axios = require( 'axios')
 
-const __fName = fileURLToPath(require(meta.url));
+const __fName = fileURLToPath(import(meta.url));
 const __dName = dirname(__fName);
 const TEN_MINUTES = 600000
 
