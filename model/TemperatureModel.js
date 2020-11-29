@@ -3,9 +3,9 @@ const path = require('path')
 const fileURLToPath = require('url').fileURLToPath
 const  { dirname, parse } = path
 
-const __filename = fileURLToPath(require(meta.url));
-const __dirname = dirname(__filename);
-const x = parse(__filename)
+const __fName = fileURLToPath(require(meta.url));
+// const __dirname = dirname(__fName);
+const x = parse(__fName)
 const DATA_PATH = '/home/pi/projects/PlantPi/sensors/Temperature/tempData/'
 
 class TemperatureModel {
