@@ -33,7 +33,7 @@ class TemperatureModel {
   static saveTemperatureData(temperatureData) {
     return db("temperature")
       .insert(temperatureData)
-      .returning("*")
+      // .returning("*")
   }
 }
 
