@@ -47,7 +47,7 @@ class TemperatureController {
       const now = new Date().toISOString()
       const currentTemp = {
         time: now,
-        temperature: tempF,
+        temp: tempF,
         openWeatherTemp: bellinghamWeather.main.temp
       }
       this.saveTemperature(currentTemp)
