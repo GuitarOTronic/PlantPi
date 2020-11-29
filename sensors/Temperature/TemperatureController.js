@@ -5,8 +5,7 @@ const temperatureTimer = require( '../services/timer.js')
 const TemperatureModel = require( '../../model/TemperatureModel.js')
 const Axios = require( 'axios')
 
-// const TEN_MINUTES = 600000
-const TEN_MINUTES = 10000
+const TEN_MINUTES = 600000
 
 const getTemperature = async (API_KEY, cb) => {
 
@@ -73,7 +72,6 @@ class TemperatureController {
   saveTemperature(tempData) {
     try {
       TemperatureModel.saveTemperatureData(tempData).then(res => {
-        console.log("saved", res)
         return res
       })
     }
