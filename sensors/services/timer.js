@@ -6,4 +6,4 @@
 }
 
 // module.exports = {temperatureTimer}
-export default temperatureTimer
+module.exports = temperatureTimer
