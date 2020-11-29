@@ -1,15 +1,12 @@
 const fs = require( 'fs')
 const ds18b20 = require( 'ds18b20')
-const fileURLToPath = require( 'url').fileURLToPath
-const dirname = require( 'path').dirname
 const convertCelsiusToFahrenheit = require( './utils.js')
 const temperatureTimer = require( '../services/timer.js')
 const TemperatureModel = require( '../../model/TemperatureModel.js')
 const Axios = require( 'axios')
 
-// const __fName = fileURLToPath(import.meta.url);
-// const __dName = dirname(__fName);
-const TEN_MINUTES = 600000
+// const TEN_MINUTES = 600000
+const TEN_MINUTES = 10000
 
 const getTemperature = async (API_KEY, cb) => {
 
@@ -32,7 +29,7 @@ class TemperatureController {
   }
 
   startTempRoutine = () => {
-    // temperatureTimer(TEN_MINUTES, this.recordTemp)
+    temperatureTimer(TEN_MINUTES, this.recordTemp)
   }
 
   getApiKey = async () => {
@@ -53,7 +50,7 @@ class TemperatureController {
         temperature: tempF,
         openWeatherTemp: bellinghamWeather.main.temp
       }
-      this.saveTempDataToJSON(currentTemp)
+      this.saveTemperature(currentTemp)
     })
   }
 
@@ -73,22 +70,12 @@ class TemperatureController {
     }
   }
 
-  saveTempDataToJSON(tempData) {
-    const today = new Date()
-
-    const fileName = `${today.getFullYear()}_${today.getMonth()}_${today.getDate()}`
-    let currentData
+  saveTemperature(tempData) {
     try {
-      currentData = fs.readFileSync(`${__dName}/tempData/${fileName}.json`)
-    }
-    catch (err) {
-      currentData = JSON.stringify([])
-    }
-    const parsedData = JSON.parse(currentData)
-    const dataToSave = [...parsedData, tempData]
-    const jsonTempData = JSON.stringify(dataToSave)
-    try {
-      fs.writeFileSync(`${__dName}/tempData/${fileName}.json`, jsonTempData)
+      TemperatureModel.saveTemperatureData(tempData).then(res => {
+        console.log("saved", res)
+        return res
+      })
     }
     catch (err) {
       Error(err.message)
