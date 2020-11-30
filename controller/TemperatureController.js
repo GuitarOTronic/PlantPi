@@ -35,8 +35,8 @@ class TemperatureController {
 
   getApiKey = async () => {
     try {
-      const apiKey = JSON.parse(fs.readFileSync(`${__dirname}/apiKey.json`))
-      return apiKey
+      const { key } = JSON.parse(fs.readFileSync(`${__dirname}/apiKey.json`))
+      return key
     }
     catch (err) {
       currentData = JSON.stringify([])
@@ -88,5 +88,7 @@ class TemperatureController {
     })
   }
 }
-
+let a = new TemperatureController()
+let v = a.getApiKey()
+console.log(v)
 module.exports = TemperatureController
