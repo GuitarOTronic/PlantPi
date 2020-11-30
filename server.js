@@ -21,8 +21,8 @@ app.use(bodyParser.json())
 
 app.use('/temperature', TemperatureRouter)
 
-app.use('/', (req, res, next) => {
-  const currentTemp = getT()
+app.use('/', async(req, res, next) => {
+  const currentTemp = await getT()
   res.send(home(currentTemp))
   // res.sendFile(path.join(__dirname+'/home.html'));
 })
