@@ -25,7 +25,7 @@ const getTemperature = async (API_KEY, cb) => {
 class TemperatureController {
   constructor() {
     this.tempCounter = 0
-    this.API_KEY = process.env.API_KEY || this.getApiKey
+    this.API_KEY = process.env.API_KEY || this.getApiKey()
 
   }
 
