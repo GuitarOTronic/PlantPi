@@ -1,8 +1,8 @@
 const fs = require( 'fs')
 const ds18b20 = require( 'ds18b20')
 const convertCelsiusToFahrenheit = require( './utils.js')
-const timedFunctionCall = require( '../services/timer.js')
-const TemperatureModel = require( '../../model/TemperatureModel.js')
+const timedFunctionCall = require( '../utilities/timer.js')
+const TemperatureModel = require( '../model/TemperatureModel.js')
 const Axios = require( 'axios')
 
 const TEN_MINUTES = 600000
