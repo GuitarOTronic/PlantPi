@@ -1,3 +1,4 @@
 /node_modules
 .env
 ./sensors/Temperature/apiKey.json
+.DS_Store

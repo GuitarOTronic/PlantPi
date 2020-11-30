@@ -1,13 +1,9 @@
-// import express from 'express'
 const express = require('express')
-// import cors from 'cors'
 const cors = require('cors')
-// import bodyParser from 'body-parser'
 const bodyParser = require('body-parser')
-// import dotenv from 'dotenv'
 const dotenv = require("dotenv")
 
-const TemperatureController = require('./sensors/Temperature/TemperatureController.js')
+const TemperatureController = require('./controller/TemperatureController.js')
 const TemperatureRouter = require('./route/TemperatureRouter.js')
 
 const app = express()
@@ -26,7 +22,7 @@ app.use('/temperature', TemperatureRouter)
 app.use('/', (req, res, next) => {
   res.status(200).json({ message: "Hello"})
 })
-
+console.log(__dirname)
 app.use((req, res) => {
   const status = 404
   const message = `Could not ${req.method} ${req.path}`

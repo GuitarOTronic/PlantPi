@@ -44,8 +44,6 @@ class TemperatureController {
   recordTemp = async (currentTime) => {
     await getTemperature(this.API_KEY, (tempF, bellinghamWeather) => {
       const now = new Date().toISOString()
-      console.log("NOW: ", now)
-      console.log("currentTime: ", currentTime)
       const currentTemp = {
         date: currentTime,
         temp: tempF,
