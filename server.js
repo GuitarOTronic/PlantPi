@@ -3,7 +3,7 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const dotenv = require('dotenv')
 const path = require('path')
-const TemperatureController = require('./controller/TemperatureController.js')
+const {TemperatureController, getTemperature} = require('./controller/TemperatureController.js')
 const TemperatureRouter = require('./route/TemperatureRouter.js')
 
 const {home} = require('./home.js')
@@ -22,7 +22,7 @@ app.use(bodyParser.json())
 app.use('/temperature', TemperatureRouter)
 
 app.use('/', (req, res, next) => {
-  const {currentTemp} = temperatureController.getTemperatureF()
+  const {currentTemp} = getTemperature()
   res.send(home(currentTemp))
   // res.sendFile(path.join(__dirname+'/home.html'));
 })
