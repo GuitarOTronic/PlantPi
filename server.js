@@ -3,10 +3,10 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const dotenv = require('dotenv')
 const path = require('path')
-const {TemperatureController, getTemperature} = require('./controller/TemperatureController.js')
+const { TemperatureController, getT } = require('./controller/TemperatureController.js')
 const TemperatureRouter = require('./route/TemperatureRouter.js')
 
-const {home} = require('./home.js')
+const { home } = require('./home.js')
 
 const app = express()
 const port = process.env.PORT || 8081
@@ -22,7 +22,7 @@ app.use(bodyParser.json())
 app.use('/temperature', TemperatureRouter)
 
 app.use('/', (req, res, next) => {
-  const {currentTemp} = TemperatureController.getTemperatureF()
+  const { currentTemp } = getT()
   res.send(home(currentTemp))
   // res.sendFile(path.join(__dirname+'/home.html'));
 })

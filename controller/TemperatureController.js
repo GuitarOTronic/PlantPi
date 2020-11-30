@@ -1,23 +1,34 @@
-const fs = require( 'fs')
-const ds18b20 = require( 'ds18b20')
-const convertCelsiusToFahrenheit = require( './utils.js')
-const timedFunctionCall = require( '../utilities/timer.js')
-const TemperatureModel = require( '../model/TemperatureModel.js')
-const Axios = require( 'axios')
+const fs = require('fs')
+const ds18b20 = require('ds18b20')
+const convertCelsiusToFahrenheit = require('./utils.js')
+const timedFunctionCall = require('../utilities/timer.js')
+const TemperatureModel = require('../model/TemperatureModel.js')
+const Axios = require('axios')
 
 const TEN_MINUTES = 600000
 
 const getTemperature = async (API_KEY, cb) => {
   try {
     const bellinghamWeather = await Axios.get(`http://api.openweathermap.org/data/2.5/weather?zip=98226&units=imperial&appid=${API_KEY}`)
-   
+
     await ds18b20.temperature('28-0115721161ff', function (err, degC) {
       let tempF = convertCelsiusToFahrenheit(degC)
       cb(tempF, bellinghamWeather.data)
     })
-    
+
   } catch (err) {
     throw Error("Error getting temp: ", err)
+  }
+}
+
+const getT = async () => {
+  try {
+    await ds18b20.temperature('28-0115721161ff', function (err, degC) {
+      return convertCelsiusToFahrenheit(degC)
+    })
+  }
+  catch (err) {
+    throw Error("Ruh Roh: ", err)
   }
 }
 
@@ -84,4 +95,4 @@ class TemperatureController {
   }
 }
 
-module.exports = { TemperatureController, getTemperature }
+module.exports = { TemperatureController, getTemperature, getT }
