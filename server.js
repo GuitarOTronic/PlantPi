@@ -22,7 +22,7 @@ app.use(bodyParser.json())
 app.use('/temperature', TemperatureRouter)
 
 app.use('/', (req, res, next) => {
-  const {currentTemp} = getTemperature()
+  const {currentTemp} = temperatureController.getTemperatureF()
   res.send(home(currentTemp))
   // res.sendFile(path.join(__dirname+'/home.html'));
 })
