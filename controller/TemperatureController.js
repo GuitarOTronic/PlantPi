@@ -84,4 +84,4 @@ class TemperatureController {
   }
 }
 
-module.exports = TemperatureController
+module.exports = { TemperatureController, getTemperature }

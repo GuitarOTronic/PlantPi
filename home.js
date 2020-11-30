@@ -1,4 +1,4 @@
-<!doctype html>
+const home = (greeting) => `<!doctype html>
 
 <html lang="en">
 
@@ -15,7 +15,11 @@
 
 <body>
   <script src="js/scripts.js"></script>
-  <h1>testy</h1>
+  <h1>Current Garden Temp: ${greeting}ºF</h1>
 </body>
 
-</html>
+</html>`
+
+module.exports = {
+  home
+}

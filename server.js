@@ -6,6 +6,8 @@ const path = require('path')
 const TemperatureController = require('./controller/TemperatureController.js')
 const TemperatureRouter = require('./route/TemperatureRouter.js')
 
+const {home} = require('./home.js')
+
 const app = express()
 const port = process.env.PORT || 8081
 dotenv.config()
@@ -20,7 +22,9 @@ app.use(bodyParser.json())
 app.use('/temperature', TemperatureRouter)
 
 app.use('/', (req, res, next) => {
-  res.sendFile(path.join(__dirname+'/home.html'));
+  const {currentTemp} = temperatureController.getTemperatureF()
+  res.send(home(currentTemp))
+  // res.sendFile(path.join(__dirname+'/home.html'));
 })
 
 app.use((req, res) => {
