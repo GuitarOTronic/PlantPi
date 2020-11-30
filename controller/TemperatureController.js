@@ -5,7 +5,7 @@ const timedFunctionCall = require( '../utilities/timer.js')
 const TemperatureModel = require( '../model/TemperatureModel.js')
 const Axios = require( 'axios')
 
-const TEN_MINUTES = 600000
+const TEN_MINUTES = 10000
 
 const getTemperature = async (API_KEY, cb) => {
 
@@ -33,7 +33,7 @@ class TemperatureController {
 
   getApiKey = async () => {
     try {
-      const apiKey = JSON.parse(fs.readFileSync(`${__dName}/apiKey.json`))
+      const apiKey = JSON.parse(fs.readFileSync(`${__dirname}/apiKey.json`))
       return apiKey
     }
     catch (err) {
