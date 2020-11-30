@@ -1,8 +1,8 @@
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
-const dotenv = require("dotenv")
-
+const dotenv = require('dotenv')
+const path = require('path')
 const TemperatureController = require('./controller/TemperatureController.js')
 const TemperatureRouter = require('./route/TemperatureRouter.js')
 
@@ -20,9 +20,9 @@ app.use(bodyParser.json())
 app.use('/temperature', TemperatureRouter)
 
 app.use('/', (req, res, next) => {
-  res.status(200).json({ message: "Hello"})
+  res.sendFile(path.join(__dirname+'/home.html'));
 })
-console.log(__dirname)
+
 app.use((req, res) => {
   const status = 404
   const message = `Could not ${req.method} ${req.path}`
