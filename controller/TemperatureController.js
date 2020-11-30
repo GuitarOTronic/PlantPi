@@ -21,11 +21,11 @@ const getTemperature = async (API_KEY, cb) => {
   }
 }
 
-const getT = async () => {
+const getT = async (cb) => {
   try {
     await ds18b20.temperature('28-0115721161ff', function (err, degC) {
       const temp = convertCelsiusToFahrenheit(degC)
-      return temp
+       cb(temp)
     })
   }
   catch (err) {
