@@ -33,7 +33,7 @@ class TemperatureController {
     timedFunctionCall(TEN_MINUTES, this.recordTemp)
   }
 
-  getApiKey = async () => {
+  getApiKey = () => {
     try {
       const { key } = JSON.parse(fs.readFileSync(`${__dirname}/apiKey.json`))
       return key
