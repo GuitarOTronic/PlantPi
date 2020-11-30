@@ -5,7 +5,7 @@ const timedFunctionCall = require( '../services/timer.js')
 const TemperatureModel = require( '../../model/TemperatureModel.js')
 const Axios = require( 'axios')
 
-const TEN_MINUTES = 1000
+const TEN_MINUTES = 600000
 
 const getTemperature = async (API_KEY, cb) => {
 
