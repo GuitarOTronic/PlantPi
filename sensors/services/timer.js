@@ -1,9 +1,10 @@
- function temperatureTimer(time, cb) {
+ function timedFunctionCall(time, cb) {
   setInterval(() => {
-    console.log("call back", new Date())
-    cb()
+    const currentTime = new Date()
+    console.log("Writing temperature data, ", currentTime)
+    cb(currentTime)
   }, time);
 }
 
 // module.exports = {temperatureTimer}
-module.exports = temperatureTimer
+module.exports = timedFunctionCall

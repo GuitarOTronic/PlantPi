@@ -1,11 +1,11 @@
 const fs = require( 'fs')
 const ds18b20 = require( 'ds18b20')
 const convertCelsiusToFahrenheit = require( './utils.js')
-const temperatureTimer = require( '../services/timer.js')
+const timedFunctionCall = require( '../services/timer.js')
 const TemperatureModel = require( '../../model/TemperatureModel.js')
 const Axios = require( 'axios')
 
-const TEN_MINUTES = 600000
+const TEN_MINUTES = 1000
 
 const getTemperature = async (API_KEY, cb) => {
 
@@ -28,7 +28,7 @@ class TemperatureController {
   }
 
   startTempRoutine = () => {
-    temperatureTimer(TEN_MINUTES, this.recordTemp)
+    timedFunctionCall(TEN_MINUTES, this.recordTemp)
   }
 
   getApiKey = async () => {
@@ -41,11 +41,13 @@ class TemperatureController {
     }
   }
 
-  recordTemp = async () => {
+  recordTemp = async (currentTime) => {
     await getTemperature(this.API_KEY, (tempF, bellinghamWeather) => {
       const now = new Date().toISOString()
+      console.log("NOW: ", now)
+      console.log("currentTime: ", currentTime)
       const currentTemp = {
-        date: now,
+        date: currentTime,
         temp: tempF,
         openWeatherTemp: bellinghamWeather.main.temp
       }
