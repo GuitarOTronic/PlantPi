@@ -10,7 +10,9 @@ const TEN_MINUTES = 10000
 const getTemperature = async (API_KEY, cb) => {
 
   try {
+    console.log('api key: ', API_KEY)
     const bellinghamWeather = await Axios.get(`http://api.openweathermap.org/data/2.5/weather?zip=98226&units=imperial&appid=${API_KEY}`)
+   
     await ds18b20.temperature('28-0115721161ff', function (err, degC) {
       let tempF = convertCelsiusToFahrenheit(degC)
       cb(tempF, bellinghamWeather.data)
