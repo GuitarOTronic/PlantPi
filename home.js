@@ -1,4 +1,4 @@
-const home = (greeting) => `<!doctype html>
+const home = (temperature) => `<!doctype html>
 
 <html lang="en">
 
@@ -15,7 +15,7 @@ const home = (greeting) => `<!doctype html>
 
 <body>
   <script src="js/scripts.js"></script>
-  <h1>Current Garden Temp: ${greeting}ºF</h1>
+  <h1>Current Garden Temp: ${temperature}ºF</h1>
 </body>
 
 </html>`
