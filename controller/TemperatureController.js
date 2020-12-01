@@ -21,19 +21,18 @@ const getTemperature = async (API_KEY, cb) => {
   }
 }
 
-const getT = async (cb) => {
+const getT = new Promise (async (resolve, reject) => {
   try {
-    const t = await ds18b20.temperature('28-0115721161ff', function (err, degC) {
-      const temp = convertCelsiusToFahrenheit(degC)
-      return temp
-      //  cb(temp)
+      await ds18b20.temperature('28-0115721161ff', function (err, degC) {
+        const temp = convertCelsiusToFahrenheit(degC)
+        resolve(temp)
     })
-    return t
   }
   catch (err) {
-    throw Error("Ruh Roh: ", err)
+    reject(err)
+    // throw Error("Ruh Roh: ", err)
   }
-}
+})
 
 class TemperatureController {
   constructor() {
