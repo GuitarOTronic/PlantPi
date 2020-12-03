@@ -8,8 +8,7 @@ class DataModel {
   }
 
   static create(data) {
-    console.log("model: ", data)
-    return db("data")
+    return db(data.type)
       .insert(data)
   }
 }
