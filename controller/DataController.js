@@ -10,7 +10,6 @@ class DataController {
   }
 
   static create (req, res, next) {
-    console.log('in create', req.body)
     DataModel.create(req.body).then(response => {
       res.json({ response })
     })
