@@ -5,6 +5,7 @@ const dotenv = require('dotenv')
 const path = require('path')
 const { TemperatureController, getT } = require('./controller/TemperatureController.js')
 const TemperatureRouter = require('./route/TemperatureRouter.js')
+const DataRouter = require('./route/DataRouter.js')
 
 const { home } = require('./home.js')
 
@@ -17,9 +18,12 @@ const temperatureController = new TemperatureController()
 temperatureController.startTempRoutine()
 
 app.use(cors())
+
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 
 app.use('/temperature', TemperatureRouter)
+app.use('/data', DataRouter)
 
 app.use('/', async (req, res, next) => {
   const temp = await getT()
