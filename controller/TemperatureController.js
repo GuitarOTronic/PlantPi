@@ -6,12 +6,13 @@ const TemperatureModel = require('../model/TemperatureModel.js')
 const Axios = require('axios')
 
 const TEN_MINUTES = 600000
-
+//  original temp 28-0115721161ff
+// waterproof temp 28-44607e297fff
 const getTemperature = async (API_KEY, cb) => {
   try {
     const bellinghamWeather = await Axios.get(`http://api.openweathermap.org/data/2.5/weather?zip=98226&units=imperial&appid=${API_KEY}`)
 
-    await ds18b20.temperature('28-0115721161ff', function (err, degC) {
+    await ds18b20.temperature('28-44607e297fff', function (err, degC) {
       let tempF = convertCelsiusToFahrenheit(degC)
       cb(tempF, bellinghamWeather.data)
     })
@@ -23,7 +24,7 @@ const getTemperature = async (API_KEY, cb) => {
 
 const getT = async () => new Promise (async (resolve, reject) => {
   try {
-      await ds18b20.temperature('28-0115721161ff', function (err, degC) {
+      await ds18b20.temperature('28-44607e297fff', function (err, degC) {
         const temp = convertCelsiusToFahrenheit(degC)
         resolve(temp)
     })
@@ -70,7 +71,7 @@ class TemperatureController {
     let tempF
 
     try {
-      await ds18b20.temperature('28-0115721161ff', function (err, degC) {
+      await ds18b20.temperature('28-44607e297fff', function (err, degC) {
         tempF = convertCelsiusToFahrenheit(degC)
         res.json({ currentTemp: tempF })
       })
