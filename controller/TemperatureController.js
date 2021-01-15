@@ -7,7 +7,8 @@ const Axios = require('axios')
 
 const TEN_MINUTES = 600000
 //  original temp 28-0115721161ff
-// waterproof temp 28-44607e297fff
+// waterproof temp1 28-44607e297fff
+// waterproof temp2 28-e6e0771772ff
 const getTemperature = async (API_KEY, cb) => {
   try {
     const bellinghamWeather = await Axios.get(`http://api.openweathermap.org/data/2.5/weather?zip=98226&units=imperial&appid=${API_KEY}`)
@@ -24,9 +25,21 @@ const getTemperature = async (API_KEY, cb) => {
 
 const getT = async () => new Promise (async (resolve, reject) => {
   try {
-      await ds18b20.temperature('28-44607e297fff', function (err, degC) {
-        const temp = convertCelsiusToFahrenheit(degC)
-        resolve(temp)
+    const tempStr = ""
+    await ds18b20.temperature('28-0115721161ff', function (err, degC) {
+      const temp = convertCelsiusToFahrenheit(degC)
+      tempStr += "Old sensor: " + temp
+      // resolve(temp)
+    })
+    await ds18b20.temperature('28-44607e297fff', function (err, degC) {
+      const temp = convertCelsiusToFahrenheit(degC)
+      tempStr += "Waterproof 1: " + temp
+      // resolve(temp)
+    })
+    await ds18b20.temperature('28-e6e0771772ff', function (err, degC) {
+      const temp = convertCelsiusToFahrenheit(degC)
+      tempStr += " Waterproof 2 " + temp
+      resolve(tempStr)
     })
   }
   catch (err) {
