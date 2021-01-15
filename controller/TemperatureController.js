@@ -25,7 +25,7 @@ const getTemperature = async (API_KEY, cb) => {
 
 const getT = async () => new Promise (async (resolve, reject) => {
   try {
-    const tempStr = ""
+    let tempStr = ""
     await ds18b20.temperature('28-0115721161ff', function (err, degC) {
       const temp = convertCelsiusToFahrenheit(degC)
       tempStr += "Old sensor: " + temp
