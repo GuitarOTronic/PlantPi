@@ -10,6 +10,7 @@ class PlantModel {
   static create(plant) {
     return db("plant")
       .insert(plant)
+      .returning("*")
   }
 }
 
