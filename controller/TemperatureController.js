@@ -37,8 +37,8 @@ const getT = async () => new Promise (async (resolve, reject) => {
     await ds18b20.temperature('28-e6e0771772ff', function (err, degC) {
       const temp = convertCelsiusToFahrenheit(degC)
       tempStr += " Waterproof 2 " + temp + '\n'
+      resolve(tempStr)
     })
-    resolve(tempStr)
   }
   catch (err) {
     reject(err)
