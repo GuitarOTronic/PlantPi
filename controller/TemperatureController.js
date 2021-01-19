@@ -27,15 +27,15 @@ const getTemperature = async (API_KEY, cb) => {
 const getT = async () => new Promise (async (resolve, reject) => {
   try {
     let tempStr = ""
-    const airTemp = () => await ds18b20.temperature('28-0115721161ff', function (err, degC) {
+    const airTemp = () => ds18b20.temperature('28-0115721161ff', function (err, degC) {
       const temp = convertCelsiusToFahrenheit(degC)
       tempStr += "Old sensor: " + Math.round(temp * 100)/100 + '\n'
     })
-    const tray1Temp = () => await ds18b20.temperature('28-44607e297fff', function (err, degC) {
+    const tray1Temp = () => ds18b20.temperature('28-44607e297fff', function (err, degC) {
       const temp = convertCelsiusToFahrenheit(degC)
       tempStr += "Waterproof 1: " +  Math.round(temp * 100)/100 + '\n'
     })
-    const tray2Temp = () => await ds18b20.temperature('28-e6e0771772ff', function (err, degC) {
+    const tray2Temp = () => ds18b20.temperature('28-e6e0771772ff', function (err, degC) {
       const temp = convertCelsiusToFahrenheit(degC)
       tempStr += " Waterproof 2 " +  Math.round(temp * 100)/100 + '\n'
       // resolve(tempStr)
