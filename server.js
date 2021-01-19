@@ -6,6 +6,7 @@ const path = require('path')
 const { TemperatureController, getT } = require('./controller/TemperatureController.js')
 const TemperatureRouter = require('./route/TemperatureRouter.js')
 const DataRouter = require('./route/DataRouter.js')
+const PlantRouter = require('./route/PlantRouter.js')
 
 const { home } = require('./home.js')
 
@@ -23,6 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 
 app.use('/temperature', TemperatureRouter)
+app.use('/plant', PlantRouter)
 app.use('/data', DataRouter)
 
 app.use('/', async (req, res, next) => {

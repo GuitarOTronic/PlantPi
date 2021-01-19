@@ -7,9 +7,9 @@ class DataModel {
       .returning("*")
   }
 
-  static create(data) {
-    return db("plant")
-      .insert(data)
+  static create(type, insertData) {
+    return db(type)
+      .insert(insertData)
   }
 }
 

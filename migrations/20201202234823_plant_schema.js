@@ -4,10 +4,8 @@ exports.up = function(knex) {
     table.increments('id').primary()
     table.text("name")
     table.text("germination_time")
-    table.text("time_to_harvest")
-    table.binary("photo")
+    table.json("grow_schedule").nullable()
     table.text("details")
-
   })
 }; 
 

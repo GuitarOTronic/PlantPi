@@ -1,5 +1,5 @@
 const express = require('express')
-const {PlantRouter} = require('../controller/PlantController.js')
+const {PlantController} = require('../controller/PlantController.js')
 const router = express.Router()
 
 router.get('/', PlantController.getAllData)

@@ -16,7 +16,7 @@
 <body>
   <script src="js/scripts.js"></script>
   <h2>New Plant</h2>
-  <form method="POST" >
+  <form method="POST" action="/plant">
     <label for="type">Type:</label><br>
     <input type="text" name="type" value="plant"><br>
 
@@ -24,8 +24,8 @@
     <input type="text" id="plantName" name="name" value=""><br>
     <label for="germTime">Germination Time:</label><br>
     <input type="text" id="germTime" name="germination_time" value=""><br><br>
-    <label for="timeToHarvest">Time to Harvest:</label><br>
-    <input type="text" id="timeToHarvest" name="time_to_harvest" value=""><br><br>
+    <label for="growSchdule">Grow Schedule:</label><br>
+    <input type="text" id="growSchdule" name="grow_schedule" value=""><br><br>
     <label for="details">Details:</label><br>
     <input type="text" id="details" name="details" value=""><br><br>
     <input type="submit" value="Submit">
