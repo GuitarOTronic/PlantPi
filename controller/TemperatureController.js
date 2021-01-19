@@ -4,6 +4,7 @@ const convertCelsiusToFahrenheit = require('./utils.js')
 const timedFunctionCall = require('../utilities/timer.js')
 const TemperatureModel = require('../model/TemperatureModel.js')
 const Axios = require('axios')
+const { resolve } = require('path')
 
 const TEN_MINUTES = 600000
 //  original temp 28-0115721161ff
@@ -26,19 +27,38 @@ const getTemperature = async (API_KEY, cb) => {
 const getT = async () => new Promise (async (resolve, reject) => {
   try {
     let tempStr = ""
-    await ds18b20.temperature('28-0115721161ff', function (err, degC) {
+    const airTemp = () => await ds18b20.temperature('28-0115721161ff', function (err, degC) {
       const temp = convertCelsiusToFahrenheit(degC)
       tempStr += "Old sensor: " + Math.round(temp * 100)/100 + '\n'
     })
-    await ds18b20.temperature('28-44607e297fff', function (err, degC) {
+    const tray1Temp = () => await ds18b20.temperature('28-44607e297fff', function (err, degC) {
       const temp = convertCelsiusToFahrenheit(degC)
       tempStr += "Waterproof 1: " +  Math.round(temp * 100)/100 + '\n'
     })
-    await ds18b20.temperature('28-e6e0771772ff', function (err, degC) {
+    const tray2Temp = () => await ds18b20.temperature('28-e6e0771772ff', function (err, degC) {
       const temp = convertCelsiusToFahrenheit(degC)
       tempStr += " Waterproof 2 " +  Math.round(temp * 100)/100 + '\n'
+      // resolve(tempStr)
+    })
+
+    Promise.all([airTemp, tray1Temp, tray2Temp]).then(temps => {
+      console.log('teest', temps)
       resolve(tempStr)
     })
+    
+    // await ds18b20.temperature('28-0115721161ff', function (err, degC) {
+    //   const temp = convertCelsiusToFahrenheit(degC)
+    //   tempStr += "Old sensor: " + Math.round(temp * 100)/100 + '\n'
+    // })
+    // await ds18b20.temperature('28-44607e297fff', function (err, degC) {
+    //   const temp = convertCelsiusToFahrenheit(degC)
+    //   tempStr += "Waterproof 1: " +  Math.round(temp * 100)/100 + '\n'
+    // })
+    // await ds18b20.temperature('28-e6e0771772ff', function (err, degC) {
+    //   const temp = convertCelsiusToFahrenheit(degC)
+    //   tempStr += " Waterproof 2 " +  Math.round(temp * 100)/100 + '\n'
+    //   resolve(tempStr)
+    // })
   }
   catch (err) {
     reject(err)
