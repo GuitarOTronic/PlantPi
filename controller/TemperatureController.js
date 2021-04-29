@@ -13,7 +13,7 @@ const getTemperature = async (API_KEY, cb) => {
   try {
     const bellinghamWeather = await Axios.get(`http://api.openweathermap.org/data/2.5/weather?zip=98226&units=imperial&appid=${API_KEY}`)
 
-    await ds18b20.temperature('28-44607e297fff', function (err, degC) {
+    await ds18b20.temperature('28-0115721161ff', function (err, degC) {
       let tempF = convertCelsiusToFahrenheit(degC)
       cb(tempF, bellinghamWeather.data)
     })
