@@ -29,16 +29,17 @@ const getT = async () => new Promise (async (resolve, reject) => {
     await ds18b20.temperature('28-0115721161ff', function (err, degC) {
       const temp = convertCelsiusToFahrenheit(degC)
       tempStr += "Old sensor: " + Math.round(temp * 100)/100 + '\n'
-    })
-    await ds18b20.temperature('28-44607e297fff', function (err, degC) {
-      const temp = convertCelsiusToFahrenheit(degC)
-      tempStr += "Waterproof 1: " +  Math.round(temp * 100)/100 + '\n'
-    })
-    await ds18b20.temperature('28-e6e0771772ff', function (err, degC) {
-      const temp = convertCelsiusToFahrenheit(degC)
-      tempStr += " Waterproof 2 " +  Math.round(temp * 100)/100 + '\n'
       resolve(tempStr)
     })
+    // await ds18b20.temperature('28-44607e297fff', function (err, degC) {
+    //   const temp = convertCelsiusToFahrenheit(degC)
+    //   tempStr += "Waterproof 1: " +  Math.round(temp * 100)/100 + '\n'
+    // })
+    // await ds18b20.temperature('28-e6e0771772ff', function (err, degC) {
+    //   const temp = convertCelsiusToFahrenheit(degC)
+    //   tempStr += " Waterproof 2 " +  Math.round(temp * 100)/100 + '\n'
+    //   resolve(tempStr)
+    // })
   }
   catch (err) {
     reject(err)
