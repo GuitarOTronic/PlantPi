@@ -4,7 +4,10 @@ const convertCelsiusToFahrenheit = require('./utils.js')
 const timedFunctionCall = require('../utilities/timer.js')
 const TemperatureModel = require('../model/TemperatureModel.js')
 const Axios = require('axios')
+const dotenv = require('dotenv')
+dotenv.config();
 
+const GARDEN_MAILER_API_KEY = process.env.GARDEN_MAILER_API_KEY
 const TEN_MINUTES = 600//000
 //  original temp 28-0115721161ff
 // waterproof 1 28-44607e297fff
