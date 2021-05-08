@@ -9,14 +9,15 @@ const DataRouter = require('./route/DataRouter.js')
 const PlantRouter = require('./route/PlantRouter.js')
 
 const { home } = require('./home.js')
+const { default: Axios } = require('axios')
 
 const app = express()
 const port = process.env.PORT || 8081
 dotenv.config()
-
+const { GARDEN_MAILER_API_KEY } = process.env
 const temperatureController = new TemperatureController()
 
-temperatureController.startTempRoutine()
+// temperatureController.startTempRoutine()
 
 app.use(cors())
 
@@ -28,8 +29,23 @@ app.use('/plant', PlantRouter)
 app.use('/data', DataRouter)
 
 app.use('/', async (req, res, next) => {
-  const temp = await getT()
-  res.send(home(temp))
+  // const temp = await getT()
+    //email nice
+    try{
+      Axios.post('http://192.168.1.4:8082/', {
+          subject: 'Niiiiice',
+          body: 'Niiicccce'
+        },
+        {headers: {
+          'x-api-key': GARDEN_MAILER_API_KEY
+        }},
+      );
+    }catch(err) {
+      console.error(err);
+    }
+
+  res.send("done")
+  // res.send(home(temp))
   // await getT((temp) => {
   //   res.send(home(temp))
   // })
