@@ -17,7 +17,7 @@ dotenv.config()
 const { GARDEN_MAILER_API_KEY } = process.env
 const temperatureController = new TemperatureController()
 
-// temperatureController.startTempRoutine()
+temperatureController.startTempRoutine()
 
 app.use(cors())
 
