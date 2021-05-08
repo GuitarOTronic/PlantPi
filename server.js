@@ -29,23 +29,9 @@ app.use('/plant', PlantRouter)
 app.use('/data', DataRouter)
 
 app.use('/', async (req, res, next) => {
-  // const temp = await getT()
-    //email nice
-    try{
-      Axios.post('http://192.168.1.4:8082/', {
-          subject: 'Niiiiice',
-          body: 'Niiicccce'
-        },
-        {headers: {
-          'x-api-key': GARDEN_MAILER_API_KEY
-        }},
-      );
-    }catch(err) {
-      console.error(err);
-    }
+  const temp = await getT()
 
-  res.send("done")
-  // res.send(home(temp))
+  res.send(home(temp))
   // await getT((temp) => {
   //   res.send(home(temp))
   // })

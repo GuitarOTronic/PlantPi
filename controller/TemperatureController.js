@@ -5,7 +5,7 @@ const timedFunctionCall = require('../utilities/timer.js')
 const TemperatureModel = require('../model/TemperatureModel.js')
 const Axios = require('axios')
 
-const TEN_MINUTES = 600000
+const TEN_MINUTES = 600//000
 //  original temp 28-0115721161ff
 // waterproof 1 28-44607e297fff
 // waterproof 2 28-e6e0771772ff
@@ -23,12 +23,12 @@ const getTemperature = async (API_KEY, cb) => {
   }
 }
 
-const getT = async () => new Promise (async (resolve, reject) => {
+const getT = async () => new Promise(async (resolve, reject) => {
   try {
     let tempStr = ""
     await ds18b20.temperature('28-0115721161ff', function (err, degC) {
       const temp = convertCelsiusToFahrenheit(degC)
-      tempStr += "Old sensor: " + Math.round(temp * 100)/100 + '\n'
+      tempStr += "Old sensor: " + Math.round(temp * 100) / 100 + '\n'
       resolve(tempStr)
     })
     // await ds18b20.temperature('28-44607e297fff', function (err, degC) {
@@ -70,6 +70,40 @@ class TemperatureController {
 
   recordTemp = async (currentTime) => {
     await getTemperature(this.API_KEY, (tempF, bellinghamWeather) => {
+      if (tempF > 80) {
+        //email nice
+        try {
+          Axios.post('http://192.168.1.4:8082/', {
+            subject: `Current Temp Alert: ${tempF}`,
+            body: 'Check yo garden'
+          },
+            {
+              headers: {
+                'x-api-key': GARDEN_MAILER_API_KEY
+              }
+            },
+          );
+        } catch (err) {
+          console.error(err);
+        }
+      }
+      // if (tempF > 80) {
+        //email nice
+        try {
+          Axios.post('http://192.168.1.4:8082/', {
+            subject: `Current Temp Alert: ${tempF}`,
+            body: 'Check yo garden'
+          },
+            {
+              headers: {
+                'x-api-key': GARDEN_MAILER_API_KEY
+              }
+            },
+          );
+        } catch (err) {
+          console.error(err);
+        }
+      // }
       const currentTemp = {
         date: currentTime,
         temp: tempF,
