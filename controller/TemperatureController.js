@@ -8,7 +8,7 @@ const dotenv = require('dotenv')
 dotenv.config();
 
 const GARDEN_MAILER_API_KEY = process.env.GARDEN_MAILER_API_KEY
-const TEN_MINUTES = 600//000
+const TEN_MINUTES = 600000
 //  original temp 28-0115721161ff
 // waterproof 1 28-44607e297fff
 // waterproof 2 28-e6e0771772ff
@@ -90,8 +90,7 @@ class TemperatureController {
           console.error(err);
         }
       }
-      // if (tempF > 80) {
-        //email nice
+      if (parseInt(tempF) === 33) {
         try {
           Axios.post('http://192.168.1.4:8082/', {
             subject: `Current Temp Alert: ${tempF}`,
@@ -106,12 +105,13 @@ class TemperatureController {
         } catch (err) {
           console.error(err);
         }
-      // }
+      }
       const currentTemp = {
         date: currentTime,
         temp: tempF,
         openWeatherTemp: bellinghamWeather.main.temp
       }
+      console.log("Writing temperature data:, ", tempF, " ", currentTime);
       this.saveTemperature(currentTemp)
     })
   }
