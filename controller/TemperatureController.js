@@ -76,7 +76,7 @@ class TemperatureController {
       if (tempF > 80) {
         //email nice
         try {
-          Axios.post('http://192.168.1.4:8082/', {
+          Axios.post('https://radiant-savannah-99528.herokuapp.com/', {
             subject: `Current Temp Alert: ${tempF}`,
             body: 'Check yo garden'
           },
