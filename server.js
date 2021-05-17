@@ -23,7 +23,6 @@ app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 
-app.use('/temperature/dailyForecast', TemperatureRouter)
 app.use('/temperature', TemperatureRouter)
 app.use('/plant', PlantRouter)
 app.use('/data', DataRouter)
