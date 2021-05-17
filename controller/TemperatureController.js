@@ -8,6 +8,7 @@ const dotenv = require('dotenv')
 dotenv.config();
 
 const GARDEN_MAILER_API_KEY = process.env.GARDEN_MAILER_API_KEY
+const API_KEY = process.env.API_KEY
 const TEN_MINUTES = 600000
 //  original temp 28-0115721161ff
 // waterproof 1 28-44607e297fff
@@ -119,7 +120,7 @@ class TemperatureController {
   static getDailyForecast = async (req, res, next) => {
     console.log("here")
     try {
-      const bellinghamWeather = await Axios.get(`http://api.openweathermap.org/data/2.5/weather?zip=98226&units=imperial&appid=${this.API_KEY}`)
+      const bellinghamWeather = await Axios.get(`http://api.openweathermap.org/data/2.5/weather?zip=98226&units=imperial&appid=${API_KEY}`)
       console.log(bellinghamWeather)
       res.json({bellinghamWeather})
     }
