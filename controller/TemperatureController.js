@@ -117,6 +117,7 @@ class TemperatureController {
   }
   
   static getDailyForecast = async (req, res, next) => {
+    console.log("here")
     try {
       const bellinghamWeather = await Axios.get(`http://api.openweathermap.org/data/2.5/weather?zip=98226&units=imperial&appid=${API_KEY}`)
       console.log(bellinghamWeather)
