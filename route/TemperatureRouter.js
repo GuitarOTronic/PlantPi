@@ -4,5 +4,6 @@ const router = express.Router()
 
 router.get('/', TemperatureController.getAllTempData)
 router.get('/current', TemperatureController.getTemperatureF)
+router.get('/dailyForecast', TemperatureController.getDailyForecast)
 
 module.exports = router
