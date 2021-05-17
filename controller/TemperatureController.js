@@ -122,7 +122,7 @@ class TemperatureController {
     try {
       const bellinghamWeather = await Axios.get(`http://api.openweathermap.org/data/2.5/weather?zip=98226&units=imperial&appid=${API_KEY}`)
       console.log(bellinghamWeather)
-      res.json({bellinghamWeather})
+      res.json(bellinghamWeather)
     }
     catch(err) {
       console.error(err)
