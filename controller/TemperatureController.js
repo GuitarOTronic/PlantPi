@@ -131,7 +131,7 @@ class TemperatureController {
     let tempF
 
     try {
-      await ds18b20.temperature('28-44607e297fff', function (err, degC) {
+      await ds18b20.temperature('28-0115721161ff', function (err, degC) {
         tempF = convertCelsiusToFahrenheit(degC)
         res.json({ currentTemp: tempF })
       })
